@@ -2,20 +2,6 @@ A one-liner phrase describing this project or app
 
 [![Codacy Badge](https://img.shields.io/badge/Code%20Quality-D-red)](https://img.shields.io/badge/Code%20Quality-D-red)
 
-## About
-
-What is this project about. Ok to enrich here or the section above it with an image. 
-
-Once this repo has been setup on Codacy by the TTL, replace the above badge with the actual one from the Codacy dashboard, and add the code coverage badge as well. This is mandatory
-
-This is a simple php starter repo template for setting up your project. The setup contains
-
-- Composer: For adding third party dependencies
-
-- phpunit: For runnung tests
-
-- php-cs-fixer: For formatting code to match php coding standard
-
 ## Why
 
 Talk about what problem this solves, what SDG(s) and SGD targets it addresses and why these are imoirtant
