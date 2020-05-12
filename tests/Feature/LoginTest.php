@@ -40,8 +40,10 @@ class LoginTest extends TestCase
         $this->json('POST', 'api/v1/login', $payload)
             ->assertStatus(200)
             ->assertJsonStructure([
+                'message',
                 'data' => [
-                    'message',
+                    'user_id',
+                    'user_email',
                     'token',
                 ],
             ]);
