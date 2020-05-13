@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Keygen\Keygen;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,4 +28,10 @@ Route::prefix('v1')->group(function () {
     Route::post('/register', 'API\UserController@register');
     Route::get('/logout', 'API\UserController@logout');
 
+//    Account Generator
+    Route::get('/newAccountNumber', function (){
+        return response()->json([
+            "Account_Number" => Keygen::numeric(16)->generate()
+        ], 200);
+    });
 });
