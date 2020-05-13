@@ -1,11 +1,9 @@
 <?php
 namespace App\Http\Controllers\API;
 
-
-Use App\Http\Controllers\Controller;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 use App\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -59,21 +57,45 @@ class UserController extends Controller
         return Auth::guard();
     }
 
+    /**
+     * Create a token after a valid/successful login .
+     *
+     * @param  array  $request
+     * @return json Response
+     */
     public function login(Request $request)
     {
-        $credentials = $request->only('email', 'password');
+        $credentials = Validator::make($request->only('email', 'password'), [
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
 
-        if (Auth::attempt($credentials)) {
-            // Authentication passed...
-            $authuser = auth()->user();
-            return response()->json(
-                [
-                    'message' => 'Login successful',
-                    'token' => $authuser->createToken('myChamaApp')->plainTextToken,
-                ],
-                200);
-        } else {
-            return response()->json(['message' => 'Invalid email or password'], 401);
+        if ($credentials->fails()) {
+            return response()->json($credentials->errors(), 422);
+        }
+        if ($credentials->passes()) {
+            $credentialsDetails = array(
+                'email' => $request->email,
+                'password' => $request->password
+            );
+            if (Auth::attempt($credentialsDetails)) {
+                // Authentication passed...
+                $authuser = auth()->user();
+                return response()->json(
+                    [
+                        'status' => 200,
+                        'message' => 'Login successful',
+                        'data' => [
+                            'user_id' => $authuser->id,
+                            'user_email' => $authuser->email,
+                            'token' => $authuser->createToken('myChamaApp')->plainTextToken,
+                        ]
+                    ],
+                    200
+                );
+            } else {
+                return response()->json(['message' => 'Invalid email or password'], 401);
+            }
         }
     }
 
