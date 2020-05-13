@@ -1,8 +1,7 @@
 <?php
 namespace App\Http\Controllers\API;
 
-
-Use App\Http\Controllers\Controller;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\User;
@@ -66,16 +65,15 @@ class UserController extends Controller
      */
     public function login(Request $request)
     {
-        $credentials = Validator::make($request->only('email','password'), [
+        $credentials = Validator::make($request->only('email', 'password'), [
             'email' => 'required|email',
             'password' => 'required',
         ]);
 
         if ($credentials->fails()) {
-           return response()->json($credentials->errors(), 422);
+            return response()->json($credentials->errors(), 422);
         }
         if ($credentials->passes()) {
-
             $credentialsDetails = array(
                 'email' => $request->email,
                 'password' => $request->password
@@ -93,12 +91,12 @@ class UserController extends Controller
                             'token' => $authuser->createToken('myChamaApp')->plainTextToken,
                         ]
                     ],
-                    200);
+                    200
+                );
             } else {
                 return response()->json(['message' => 'Invalid email or password'], 401);
             }
         }
-
     }
 
     public function logout()

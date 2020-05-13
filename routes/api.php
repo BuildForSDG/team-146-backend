@@ -29,7 +29,7 @@ Route::prefix('v1')->group(function () {
     Route::get('/logout', 'API\UserController@logout');
 
 //    Account Generator
-    Route::get('/newAccountNumber', function (){
+    Route::get('/newAccountNumber', function () {
         return response()->json([
             "Account_Number" => Keygen::numeric(16)->generate()
         ], 200);

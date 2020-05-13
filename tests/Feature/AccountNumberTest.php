@@ -15,7 +15,8 @@ class AccountNumberTest extends TestCase
      * @return Response /newAccountNumber
      */
 
-    Public function testNewAccountNumberGeneration(){
+    public function testNewAccountNumberGeneration()
+    {
         $response = $this->get('/api/v1/newAccountNumber');
         $response
             ->assertStatus(200)

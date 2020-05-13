@@ -20,7 +20,8 @@ class LoginTest extends TestCase
 //
 //        $response->assertStatus(200);
 //    }
-    public function testValidateLoginInput(){
+    public function testValidateLoginInput()
+    {
         $this->json('POST', 'api/v1/login')
             ->assertStatus(422)
             ->assertJson([
@@ -47,6 +48,5 @@ class LoginTest extends TestCase
                     'token',
                 ],
             ]);
-
     }
 }
